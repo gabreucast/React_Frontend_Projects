@@ -6,6 +6,8 @@ import { Link } from 'react-router-dom';
 import { FaUser, FaShoppingCart, FaHeart, FaBars, FaTimes, FaSearch } from 'react-icons/fa'; // Ícones do usuário, carrinho e favoritos
 import './Header.css'; // Estilos específicos do Header
 import logo from '../../assets/lenovo-logo.svg'; // Logo (coloque sua imagem em src/assets)
+import { useCart } from '../../context/CartContext';
+import CartModal from '../Cart/CartModal';
 
 const Header = () => {
   // Estados para controlar a interface
@@ -16,43 +18,11 @@ const Header = () => {
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [user, setUser] = useState(null); // TODO: Integrar com contexto de autenticação
   const [favorites, setFavorites] = useState([]); // TODO: Integrar com contexto de favoritos
-  const [cartCount, setCartCount] = useState(0);
-  const [sessionId, setSessionId] = useState('');
+  // Usar el contexto del carrito
+  const { cartItems, getCartItemsCount, toggleCart, isOpen } = useCart();
 
-  // Generar o recuperar sessionId
-  useEffect(() => {
-    let currentSessionId = localStorage.getItem('sessionId');
-    if (!currentSessionId) {
-      currentSessionId = 'session_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
-      localStorage.setItem('sessionId', currentSessionId);
-    }
-    setSessionId(currentSessionId);
-    loadCartCount(currentSessionId);
-
-    // Escuchar eventos de actualización del carrito
-    const handleCartUpdate = () => {
-      loadCartCount(currentSessionId);
-    };
-
-    window.addEventListener('cartUpdated', handleCartUpdate);
-
-    return () => {
-      window.removeEventListener('cartUpdated', handleCartUpdate);
-    };
-  }, []);
-
-  // Cargar cantidad de items en el carrito
-  const loadCartCount = async (sessionId) => {
-    try {
-      // TODO: Implementar cuando se tenga el servicio del carrito
-      // const cartData = await cartAPI.getBySessionId(sessionId);
-      // const count = cartData.items ? cartData.items.reduce((total, item) => total + item.quantity, 0) : 0;
-      setCartCount(0);
-    } catch (error) {
-      console.log('No hay carrito existente o error al cargar:', error);
-      setCartCount(0);
-    }
-  };
+  // Obtener el conteo de items del carrito
+  const cartCount = getCartItemsCount();
 
   // Función para manejar la búsqueda
   const handleSearch = (e) => {
@@ -80,15 +50,32 @@ const Header = () => {
 
   // Función para manejar click en carrito
   const handleCartClick = () => {
-    console.log('Abrir carrito, sessionId:', sessionId);
-    // TODO: Implementar modal del carrito o navegación
+    toggleCart();
   };
   return (
     // Cabeçalho geral do site
     <header className="header">
+      {/* Barra superior con información de contacto */}
+      <div className="header__contact-bar">
+        <div className="contact-info">
+          <span className="contact-item">
+            Fale conosco pelo <strong>WhatsApp</strong> no número <strong>+55 13 4042-0656</strong> ou pelo número <strong>0800-536-6841 (Opção 2)</strong>
+          </span>
+        </div>
+        <div className="top-links">
+          <Link to="/lenovo-pro" className="top-link">LenovoPro</Link>
+          <Link to="/education" className="top-link">Lenovo Educational</Link>
+          <Link to="/gaming" className="top-link">Gaming</Link>
+        </div>
+      </div>
+
       {/* Faixa promocional (topo) */}
       <div className="header__top__promo" aria-label="faixa promocional">
-        <strong>LenovoPro.</strong> Conheça nossos programas exclusivos de descontos e benefícios para empresas. <strong>Cadastre-se gratuitamente.</strong>
+        <div className="promo-content">
+          <span className="promo-badge">🎉 ANIVERSÁRIO LENOVO</span>
+          <strong>🔥 Aproveite até 33% OFF em ofertas imperdíveis em todo o site! 🔥</strong>
+          <span className="promo-details">✨ Ofertas limitadas - Não perca! ✨</span>
+        </div>
       </div>
 
       {/* Linha com logo, busca e ícones à direita */}
@@ -110,7 +97,7 @@ const Header = () => {
                 autoFocus
               />
               <button type="submit" className="search-submit-btn">
-                <FaSearch />
+                🔍
               </button>
             </form>
           ) : (
@@ -118,7 +105,7 @@ const Header = () => {
               className="search-toggle-btn"
               onClick={() => setIsSearchOpen(true)}
             >
-              <FaSearch className="search-icon" />
+              🔍
               <span>Procurar produtos</span>
             </button>
           )}
@@ -133,7 +120,7 @@ const Header = () => {
               onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
               title="Minha conta"
             >
-              <FaUser />
+              👤
             </button>
             {isUserMenuOpen && (
               <div className="user-dropdown">
@@ -162,7 +149,7 @@ const Header = () => {
 
           {/* Favoritos */}
           <button className="header__icon" title="Favoritos">
-            <FaHeart />
+            ❤️
             {favorites.length > 0 && (
               <span className="icon-badge">{favorites.length}</span>
             )}
@@ -174,11 +161,59 @@ const Header = () => {
             title="Carrinho"
             onClick={handleCartClick}
           >
-            <FaShoppingCart />
+            🛒
             {cartCount > 0 && (
               <span className="icon-badge cart-badge">{cartCount}</span>
             )}
           </button>
+        </div>
+      </div>
+
+      {/* Navegación por categorías */}
+      <div className="header__categories">
+        <div className="categories-container">
+          <div className="category-tabs">
+            <button className="category-tab active">
+              <span className="tab-icon">💻</span>
+              <span>Notebooks para o dia a dia</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">💼</span>
+              <span>Notebooks Para Trabalhar</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">🎮</span>
+              <span>Notebooks e Desktops Gamer</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">🖥️</span>
+              <span>Desktops</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">🖨️</span>
+              <span>Impressoras</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">🖱️</span>
+              <span>Acessórios</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">📱</span>
+              <span>Smartphones</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">📺</span>
+              <span>Workstations</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">💾</span>
+              <span>Servidores</span>
+            </button>
+            <button className="category-tab">
+              <span className="tab-icon">🖥️</span>
+              <span>Monitores</span>
+            </button>
+          </div>
         </div>
       </div>
 
@@ -193,85 +228,87 @@ const Header = () => {
           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
         </button>
 
-        {/* Lista da esquerda (produtos/soluções/serviços/etc.) */}
-        <ul className={`header__nav--left ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
-          <li 
-            className="has-submenu"
-            onMouseEnter={() => setIsProductsDropdownOpen(true)}
-            onMouseLeave={() => setIsProductsDropdownOpen(false)}
-          >
-            Produtos
-            <ul className={`submenu ${isProductsDropdownOpen ? 'dropdown-open' : ''}`}>
-              <li>Promoções</li>
-              <li><Link to="/notebooks">Notebooks</Link></li>
-              <li>Desktops</li>
-              <li>Workstations</li>
-              <li>Tablets</li>
-              <li>Servidores e Armazenamento</li>
-              <li>Acessórios</li>
-              <li>Monitores</li>
-              <li>Serviços</li>
-              <li>IA</li>
-            </ul>
-          </li>
+        {/* Navegação unificada em uma linha */}
+        <div className="nav-container">
+          <ul className={`header__nav--left ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+            <li 
+              className="has-submenu"
+              onMouseEnter={() => setIsProductsDropdownOpen(true)}
+              onMouseLeave={() => setIsProductsDropdownOpen(false)}
+            >
+              Produtos
+              <ul className={`submenu ${isProductsDropdownOpen ? 'dropdown-open' : ''}`}>
+                <li>Promoções</li>
+                <li><Link to="/notebooks">Notebooks</Link></li>
+                <li>Desktops</li>
+                <li>Workstations</li>
+                <li>Tablets</li>
+                <li>Servidores e Armazenamento</li>
+                <li>Acessórios</li>
+                <li>Monitores</li>
+                <li>Serviços</li>
+                <li>IA</li>
+              </ul>
+            </li>
 
-          <li className="has-submenu">
-            Soluções
-            <ul className="submenu">
-              <li>IA</li>
-              <li>Digital Workplace</li>
-              <li>Nuvem Híbrida</li>
-              <li>Edge</li>
-              <li>Sustentabilidade</li>
-              <li>TruScale</li>
-              <li>Soluções por Indústria</li>
-              <li>Parceiros da Aliança</li>
-              <li>Outras Soluções</li>
-              <li>Recursos</li>
-            </ul>
-          </li>
+            <li className="has-submenu">
+              Soluções
+              <ul className="submenu">
+                <li>IA</li>
+                <li>Digital Workplace</li>
+                <li>Nuvem Híbrida</li>
+                <li>Edge</li>
+                <li>Sustentabilidade</li>
+                <li>TruScale</li>
+                <li>Soluções por Indústria</li>
+                <li>Parceiros da Aliança</li>
+                <li>Outras Soluções</li>
+                <li>Recursos</li>
+              </ul>
+            </li>
 
-          <li className="has-submenu">
-            Serviços
-            <ul className="submenu">
-              <li>Serviços de Consultoria</li>
-              <li>Serviços de Implantação</li>
-              <li>Serviços Gerenciados</li>
-              <li>Serviços de Segurança</li>
-              <li>Serviços de Suporte</li>
-              <li>TruScale</li>
-              <li>Consulta de Garantia</li>
-            </ul>
-          </li>
+            <li className="has-submenu">
+              Serviços
+              <ul className="submenu">
+                <li>Serviços de Consultoria</li>
+                <li>Serviços de Implantação</li>
+                <li>Serviços Gerenciados</li>
+                <li>Serviços de Segurança</li>
+                <li>Serviços de Suporte</li>
+                <li>TruScale</li>
+                <li>Consulta de Garantia</li>
+              </ul>
+            </li>
 
-          <li>Suporte</li>
+            <li>Suporte</li>
 
-          <li className="has-submenu">
-            Sobre Lenovo
-            <ul className="submenu">
-              <li>Quem Somos</li>
-              <li>Nossos Líderes</li>
-              <li>Inovação</li>
-              <li>Nosso Impacto</li>
-            </ul>
-          </li>
+            <li className="has-submenu">
+              Sobre Lenovo
+              <ul className="submenu">
+                <li>Quem Somos</li>
+                <li>Nossos Líderes</li>
+                <li>Inovação</li>
+                <li>Nosso Impacto</li>
+              </ul>
+            </li>
 
-          <li className="has-submenu">
-            Promoções
-            <ul className="submenu">
-              <li>Todas as Promoções</li>
-              <li>Membros e Programas</li>
-              <li>Outlet</li>
-            </ul>
-          </li>
-        </ul>
+            <li className="has-submenu">
+              Promoções
+              <ul className="submenu">
+                <li>Todas as Promoções</li>
+                <li>Membros e Programas</li>
+                <li>Outlet</li>
+              </ul>
+            </li>
+          </ul>
 
-        {/* Lista da direita (atalhos de áreas) */}
-        <ul className="header__nav--right">
-          <li>Empresa</li>
-          <li>Educação</li>
-          <li>Gaming</li>
-        </ul>
+          {/* Lista da direita (atalhos de áreas) */}
+          <ul className="header__nav--right">
+            <li>Empresa</li>
+            <li>Educação</li>
+            <li>Gaming</li>
+          </ul>
+        </div>
       </nav>
 
       {/* Faixa informativa inferior (banner cinza) */}
@@ -281,6 +318,9 @@ const Header = () => {
           para empresas. <strong>Cadastre-se gratuitamente.</strong>
         </p>
       </div>
+
+      {/* Modal del carrito */}
+      <CartModal />
     </header>
   );
 };

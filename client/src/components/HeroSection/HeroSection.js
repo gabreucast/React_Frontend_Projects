@@ -19,34 +19,34 @@ const HeroSection = () => {
           <div className="hero-text">
             <div className="hero-badge">
               <span className="badge-icon">⚡</span>
-              <span>Novos modelos disponíveis</span>
+              <span>Nuevos modelos disponibles</span>
             </div>
             
             <h1 className="hero-title">
-              Tecnologia <span className="highlight">Lenovo</span><br />
-              que transforma seu mundo
+              Tecnología <span className="highlight">Lenovo</span><br />
+              que transforma tu mundo
             </h1>
             
             <p className="hero-subtitle">
-              Descubra nossa ampla gama de laptops projetados para profissionais, 
-              gamers, estudantes e criativos. Potência, inovação e qualidade em cada dispositivo.
+              Descubre nuestra amplia gama de laptops diseñadas para profesionales, 
+              gamers, estudiantes y creativos. Potencia, innovación y calidad en cada dispositivo.
             </p>
             
             <div className="hero-stats">
               <div className="stat-item">
                 <div className="stat-number">50+</div>
-                <div className="stat-label">Modelos disponíveis</div>
+                <div className="stat-label">Modelos disponibles</div>
               </div>
               <div className="stat-item">
                 <div className="stat-number">4.8</div>
                 <div className="stat-label">
                   <FaStar className="star-icon" />
-                  Avaliação média
+                  Calificación promedio
                 </div>
               </div>
               <div className="stat-item">
                 <div className="stat-number">24h</div>
-                <div className="stat-label">Entrega expressa</div>
+                <div className="stat-label">Envío express</div>
               </div>
             </div>
             
@@ -58,7 +58,7 @@ const HeroSection = () => {
               </Link>
               <button className="hero-btn secondary" onClick={handlePlayVideo}>
                 <FaPlay />
-                Ver demonstração
+                Ver demo
               </button>
             </div>
             
@@ -66,22 +66,22 @@ const HeroSection = () => {
               <div className="feature-item">
                 <FaTruck className="feature-icon" />
                 <div className="feature-text">
-                  <strong>Frete grátis</strong>
-                  <span>Em compras acima de R$ 500</span>
+                  <strong>Envío gratis</strong>
+                  <span>En compras mayores a $50.000</span>
                 </div>
               </div>
               <div className="feature-item">
                 <FaShieldAlt className="feature-icon" />
                 <div className="feature-text">
-                  <strong>Garantia estendida</strong>
-                  <span>Até 3 anos de cobertura</span>
+                  <strong>Garantía extendida</strong>
+                  <span>Hasta 3 años de cobertura</span>
                 </div>
               </div>
               <div className="feature-item">
                 <FaCreditCard className="feature-icon" />
                 <div className="feature-text">
-                  <strong>Financiamento flexível</strong>
-                  <span>Até 18x sem juros</span>
+                  <strong>Financiación flexible</strong>
+                  <span>Hasta 18 cuotas sin interés</span>
                 </div>
               </div>
             </div>
@@ -106,7 +106,7 @@ const HeroSection = () => {
                 </div>
                 <div className="card-content">
                   <h4>ThinkPad Series</h4>
-                  <p className="card-price">A partir de R$ 7.599</p>
+                  <p className="card-price">Desde $75.999</p>
                   <span className="card-discount">20% OFF</span>
                 </div>
               </div>
@@ -118,7 +118,7 @@ const HeroSection = () => {
                 </div>
                 <div className="card-content">
                   <h4>Legion Series</h4>
-                  <p className="card-price">A partir de R$ 12.999</p>
+                  <p className="card-price">Desde $129.999</p>
                   <span className="card-discount">25% OFF</span>
                 </div>
               </div>
@@ -130,7 +130,7 @@ const HeroSection = () => {
                 </div>
                 <div className="card-content">
                   <h4>IdeaPad Series</h4>
-                  <p className="card-price">A partir de R$ 3.599</p>
+                  <p className="card-price">Desde $35.999</p>
                   <span className="card-discount">15% OFF</span>
                 </div>
               </div>
@@ -142,8 +142,8 @@ const HeroSection = () => {
                 </div>
                 <div className="card-content">
                   <h4>Yoga Series</h4>
-                  <p className="card-price">A partir de R$ 8.999</p>
-                  <span className="card-discount">Novo</span>
+                  <p className="card-price">Desde $89.999</p>
+                  <span className="card-discount">Nuevo</span>
                 </div>
               </div>
             </div>
@@ -162,7 +162,7 @@ const HeroSection = () => {
       
       {/* Indicadores de scroll */}
       <div className="scroll-indicator">
-        <div className="scroll-text">Role para explorar</div>
+        <div className="scroll-text">Desliza para explorar</div>
         <div className="scroll-arrow">↓</div>
       </div>
     </section>

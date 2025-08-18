@@ -1,61 +1,81 @@
-/* ProductCard.css - Estilo similar a Lenovo */
+/* ProductCard.css - Estilo Lenovo moderno */
 
 .product-card {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  border: 1px solid #f0f0f0;
+  background: var(--lenovo-white);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-medium);
+  border: 1px solid var(--lenovo-very-light-gray);
   overflow: hidden;
   position: relative;
   height: 100%;
+  min-height: 450px;
+  max-width: 350px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .product-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-  border-color: #e1251b;
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--lenovo-red);
 }
 
 /* Badges superiores */
 .product-badges {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  right: 12px;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  right: var(--spacing-md);
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
   z-index: 10;
+  pointer-events: none;
 }
 
-.anniversary-badge {
-  background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
+.badges-left {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  pointer-events: auto;
+}
+
+.badge {
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-xs);
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.3);
+  box-shadow: var(--shadow-sm);
 }
 
-.storage-badge {
-  background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  box-shadow: 0 2px 8px rgba(6, 182, 212, 0.3);
+.featured-badge {
+  background: linear-gradient(135deg, var(--lenovo-red) 0%, var(--lenovo-red-dark) 100%);
+  color: var(--lenovo-white);
 }
 
-.favorite-btn {
+.discount-badge {
+  background: linear-gradient(135deg, var(--lenovo-green) 0%, #00A651 100%);
+  color: var(--lenovo-white);
+}
+
+.stock-badge {
+  background: linear-gradient(135deg, var(--lenovo-orange) 0%, #FF6600 100%);
+  color: var(--lenovo-white);
+}
+
+/* Acciones rápidas */
+.quick-actions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  pointer-events: auto;
+}
+
+.quick-action-btn {
   background: rgba(255, 255, 255, 0.9);
   border: none;
   border-radius: 50%;
@@ -65,29 +85,30 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  transition: all 0.3s ease;
+  transition: all var(--transition-fast);
   backdrop-filter: blur(10px);
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: var(--shadow-sm);
+  color: var(--lenovo-medium-gray);
 }
 
-.favorite-btn:hover {
-  background: #e1251b;
-  color: white;
+.quick-action-btn:hover {
+  background: var(--lenovo-red);
+  color: var(--lenovo-white);
   transform: scale(1.1);
 }
 
-.favorite-btn svg {
-  width: 18px;
-  height: 18px;
-  fill: currentColor;
+.quick-action-btn.active {
+  background: var(--lenovo-red);
+  color: var(--lenovo-white);
 }
 
 /* Imagen del producto */
 .product-image {
   position: relative;
-  height: 200px;
+  height: 220px;
   overflow: hidden;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: linear-gradient(135deg, var(--lenovo-very-light-gray) 0%, #e9ecef 100%);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -97,47 +118,81 @@
   width: 100%;
   height: 100%;
   object-fit: contain;
-  padding: 20px;
-  transition: transform 0.3s ease;
+  padding: var(--spacing-lg);
+  transition: transform var(--transition-medium);
 }
 
 .product-card:hover .product-image img {
   transform: scale(1.05);
 }
 
-.product-image-placeholder {
-  width: 100%;
-  height: 100%;
+/* Overlay hover */
+.hover-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.7);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
+  opacity: 0;
+  transition: opacity var(--transition-medium);
+}
+
+.product-card:hover .hover-overlay {
+  opacity: 1;
+}
+
+.overlay-actions {
+  display: flex;
+  gap: var(--spacing-md);
+}
+
+.overlay-btn {
+  background: var(--lenovo-white);
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+}
+
+.overlay-btn:hover {
+  background: var(--lenovo-red);
+  color: var(--lenovo-white);
 }
 
 /* Contenido de la tarjeta */
-.card-body {
-  padding: 20px;
+.product-body {
+  padding: var(--spacing-lg);
   flex: 1;
   display: flex;
   flex-direction: column;
 }
 
 .product-brand {
-  color: #666;
-  font-size: 12px;
-  font-weight: 500;
+  color: var(--lenovo-red);
+  font-size: var(--font-size-xs);
+  font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  margin-bottom: 8px;
+  margin-bottom: var(--spacing-xs);
 }
 
 .product-title {
-  font-size: 16px;
+  font-size: var(--font-size-lg);
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--lenovo-black);
   line-height: 1.4;
-  margin: 0 0 8px 0;
-  min-height: 44px;
+  margin: 0 0 var(--spacing-xs) 0;
+  min-height: 48px;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -145,27 +200,31 @@
 }
 
 .product-model {
-  color: #666;
-  font-size: 14px;
-  margin: 0 0 16px 0;
+  color: var(--lenovo-medium-gray);
+  font-size: var(--font-size-sm);
+  margin: 0 0 var(--spacing-md) 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Rating */
 .product-rating {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
 }
 
-.rating-stars {
+.stars {
   display: flex;
   align-items: center;
   gap: 2px;
 }
 
 .star {
-  font-size: 14px;
+  font-size: var(--font-size-sm);
   color: #ddd;
 }
 
@@ -173,130 +232,128 @@
   color: #ffc107;
 }
 
-.rating-count {
-  font-size: 12px;
-  color: #666;
-  margin-left: 4px;
+.star.half {
+  color: #ffc107;
+}
+
+.rating-text {
+  font-size: var(--font-size-xs);
+  color: var(--lenovo-medium-gray);
 }
 
 /* Especificaciones */
 .product-specs {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
 .spec-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 6px 0;
-  font-size: 12px;
-}
-
-.spec-label {
-  color: #666;
-  font-weight: 500;
+  padding: var(--spacing-xs) 0;
+  font-size: var(--font-size-xs);
+  color: var(--lenovo-medium-gray);
+  border-left: 3px solid var(--lenovo-very-light-gray);
+  padding-left: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
 }
 
 .spec-value {
-  color: #333;
-  font-weight: 600;
+  color: var(--lenovo-dark-gray);
+  font-weight: 500;
 }
 
 /* Categorías */
 .product-categories {
-  margin-bottom: 16px;
+  margin-bottom: var(--spacing-md);
 }
 
-.category-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.badge {
-  background: #f0f0f0;
-  color: #666;
-  padding: 4px 8px;
-  border-radius: 12px;
-  font-size: 10px;
+.category-tag {
+  background: var(--lenovo-blue-light);
+  color: var(--lenovo-blue);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-xs);
   font-weight: 500;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  margin-right: var(--spacing-xs);
+  margin-bottom: var(--spacing-xs);
+  display: inline-block;
 }
 
 /* Footer del producto */
 .product-footer {
-  margin-top: auto;
+  padding: var(--spacing-lg);
+  border-top: 1px solid var(--lenovo-very-light-gray);
+  background: var(--lenovo-white);
 }
 
-.product-price {
-  margin-bottom: 16px;
+.pricing-section {
+  margin-bottom: var(--spacing-md);
 }
 
-.price-current {
-  font-size: 20px;
+.price-info {
+  display: flex;
+  align-items: baseline;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-xs);
+}
+
+.current-price {
+  font-size: var(--font-size-xl);
   font-weight: 700;
-  color: #e1251b;
+  color: var(--lenovo-red);
+}
+
+.original-price {
+  font-size: var(--font-size-sm);
+  color: var(--lenovo-light-gray);
+  text-decoration: line-through;
+}
+
+.savings-info {
+  margin-bottom: var(--spacing-xs);
+}
+
+.savings-text {
+  font-size: var(--font-size-xs);
+  color: var(--lenovo-green);
+  font-weight: 600;
+}
+
+.payment-options {
+  font-size: var(--font-size-xs);
+  color: var(--lenovo-medium-gray);
+}
+
+.installments {
   display: block;
 }
 
-.price-original {
-  font-size: 14px;
-  color: #999;
-  text-decoration: line-through;
-  margin-left: 8px;
+/* Botones de acción */
+.action-buttons {
+  display: flex;
+  gap: var(--spacing-sm);
 }
 
-.price-installments {
-  font-size: 12px;
-  color: #666;
-  margin-top: 4px;
-}
-
-.pix-discount {
-  background: linear-gradient(135deg, #00c851 0%, #00a041 100%);
-  color: white;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
+.add-to-cart-btn {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-size: var(--font-size-sm);
   font-weight: 600;
-  margin-top: 8px;
-  display: inline-block;
-}
-
-/* Botones */
-.card-footer {
-  padding: 0 20px 20px;
-}
-
-.btn-add-cart {
-  width: 100%;
-  background: linear-gradient(135deg, #e1251b 0%, #c41e3a 100%);
-  color: white;
-  border: none;
-  padding: 12px 20px;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
   text-transform: uppercase;
   letter-spacing: 0.5px;
+  border-radius: var(--border-radius-md);
+  transition: all var(--transition-fast);
 }
 
-.btn-add-cart:hover:not(:disabled) {
-  background: linear-gradient(135deg, #c41e3a 0%, #a01729 100%);
-  transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(225, 37, 27, 0.3);
-}
-
-.btn-add-cart:disabled {
-  background: #ccc;
+.add-to-cart-btn:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
   transform: none;
 }
 
-.loading {
+.add-to-cart-btn .loading-spinner {
   width: 16px;
   height: 16px;
   border: 2px solid transparent;
@@ -326,24 +383,53 @@
 
 /* Responsive */
 @media (max-width: 768px) {
-  .product-card {
-    margin-bottom: 16px;
+  .product-image {
+    height: 180px;
   }
   
-  .card-body {
-    padding: 16px;
+  .product-body {
+    padding: var(--spacing-md);
   }
   
-  .card-footer {
-    padding: 0 16px 16px;
+  .product-footer {
+    padding: var(--spacing-md);
   }
   
   .product-title {
-    font-size: 14px;
+    font-size: var(--font-size-base);
     min-height: 40px;
   }
   
-  .price-current {
-    font-size: 18px;
+  .current-price {
+    font-size: var(--font-size-lg);
+  }
+  
+  .quick-action-btn {
+    width: 32px;
+    height: 32px;
+  }
+  
+  .product-badges {
+    top: var(--spacing-sm);
+    left: var(--spacing-sm);
+    right: var(--spacing-sm);
+  }
+}
+
+@media (max-width: 480px) {
+  .product-image {
+    height: 160px;
+  }
+  
+  .hover-overlay {
+    display: none; /* Ocultar overlay en móviles */
+  }
+  
+  .spec-item {
+    font-size: var(--font-size-xs);
+  }
+  
+  .action-buttons {
+    flex-direction: column;
   }
 }

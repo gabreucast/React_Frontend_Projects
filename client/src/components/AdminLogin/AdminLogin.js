@@ -15,18 +15,29 @@ const AdminLogin = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log('🚀 Formulario enviado');
+    console.log('📝 Datos del formulario:', { username: formData.username, password: '***' });
+    
     setLoading(true);
     setError('');
     
     try {
+      console.log('🔄 Llamando función login...');
       const result = await login(formData);
+      console.log('📋 Resultado del login:', result);
+      
       if (!result.success) {
+        console.log('❌ Login falló:', result.error);
         setError(result.error || 'Error en el login');
+      } else {
+        console.log('✅ Login exitoso!');
       }
     } catch (err) {
+      console.error('💥 Error en handleSubmit:', err);
       setError('Error de conexión');
     } finally {
       setLoading(false);
+      console.log('🏁 Proceso de login terminado');
     }
   };
 

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaStar, FaArrowRight, FaArrowLeft } from 'react-icons/fa';
+import { useCart } from '../../context/CartContext';
 import laptopService from '../../services/laptopService';
 import './ProductSection.css';
 
@@ -8,6 +9,8 @@ const ProductSection = () => {
   const [featuredLaptops, setFeaturedLaptops] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [addingToCart, setAddingToCart] = useState({});
+  const { addToCart } = useCart();
 
   useEffect(() => {
     loadFeaturedLaptops();
@@ -83,6 +86,20 @@ const ProductSection = () => {
     setCurrentSlide((prev) => 
       prev === 0 ? Math.ceil(featuredLaptops.length / 3) - 1 : prev - 1
     );
+  };
+
+  const handleAddToCart = async (laptop) => {
+    setAddingToCart(prev => ({ ...prev, [laptop._id]: true }));
+    try {
+      const result = await addToCart(laptop, 1);
+      if (result.success) {
+        console.log('Producto agregado al carrito');
+      }
+    } catch (error) {
+      console.error('Error al agregar al carrito:', error);
+    } finally {
+      setAddingToCart(prev => ({ ...prev, [laptop._id]: false }));
+    }
   };
 
   const formatPrice = (price, currency = 'BRL') => {
@@ -211,8 +228,12 @@ const ProductSection = () => {
                           <Link to={`/product/${laptop._id}`} className="view-details-btn">
                             Ver detalles
                           </Link>
-                          <button className="add-to-cart-btn">
-                            Agregar al carrito
+                          <button 
+                            className="add-to-cart-btn"
+                            onClick={() => handleAddToCart(laptop)}
+                            disabled={addingToCart[laptop._id]}
+                          >
+                            {addingToCart[laptop._id] ? 'Agregando...' : 'Agregar al carrito'}
                           </button>
                         </div>
                       </div>

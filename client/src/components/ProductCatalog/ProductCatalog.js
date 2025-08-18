@@ -1,102 +1,232 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaStar, FaSearch, FaFilter, FaTimes } from 'react-icons/fa';
+import { FaStar, FaSearch, FaFilter, FaTimes, FaShoppingCart, FaHeart } from 'react-icons/fa';
 import laptopService from '../../services/laptopService';
-import '../../styles/ProductCatalog.css'
+import ProductCard from '../ProductCard/ProductCard';
+import './ProductCatalog.css';
 
-const ProductCatalog = () => {
+const ProductCatalog = ({ showFilters = true, limit = null, title = null }) => {
   const [laptops, setLaptops] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [filters, setFilters] = useState({
-    page: 1,
-    limit: 12,
+    search: '',
     brand: '',
     minPrice: '',
     maxPrice: '',
-    search: ''
+    sortBy: 'featured'
   });
-  const [brands, setBrands] = useState([]);
-  const [showFilters, setShowFilters] = useState(false);
+  const [showFilterModal, setShowFilterModal] = useState(false);
 
   useEffect(() => {
-    loadBrands();
     loadLaptops();
-  }, [filters]);
-
-  const loadBrands = async () => {
-    try {
-      const response = await laptopService.getBrands();
-      setBrands(response.data || []);
-    } catch (err) {
-      console.error('Error loading brands:', err);
-    }
-  };
+  }, [filters, limit]);
 
   const loadLaptops = async () => {
     try {
       setLoading(true);
-      const response = await laptopService.getAll(filters);
-      setLaptops(response.data || []);
       setError(null);
+
+      let laptopData;
+      
+      if (limit) {
+        // Si hay límite, cargar laptops destacadas
+        laptopData = await laptopService.getFeaturedLaptops ? 
+          await laptopService.getFeaturedLaptops(limit) :
+          (await laptopService.getAll({ limit })).data.slice(0, limit);
+      } else {
+        // Cargar todas las laptops
+        const response = await laptopService.getAll(filters);
+        laptopData = response.data || [];
+      }
+
+      setLaptops(laptopData);
     } catch (err) {
-      setError('Error al cargar los productos');
-      console.error('Error loading laptops:', err);
+      console.error('Error al cargar laptops:', err);
+      setError('Error al cargar los productos. Por favor, intenta nuevamente.');
     } finally {
       setLoading(false);
     }
   };
 
-  const handleFilterChange = (key, value) => {
+  const handleFilterChange = (filterName, value) => {
     setFilters(prev => ({
       ...prev,
-      [key]: value,
-      page: 1 // Reset to first page when filters change
+      [filterName]: value
     }));
   };
 
   const clearFilters = () => {
     setFilters({
-      page: 1,
-      limit: 12,
+      search: '',
       brand: '',
       minPrice: '',
       maxPrice: '',
-      search: ''
+      sortBy: 'featured'
     });
   };
 
-  const formatPrice = (price, currency = 'BRL') => {
-    return new Intl.NumberFormat('pt-BR', {
+  const formatPrice = (price, currency = 'ARS') => {
+    return new Intl.NumberFormat('es-AR', {
       style: 'currency',
-      currency: currency
+      currency: currency,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0
     }).format(price);
   };
 
-  const renderStars = (rating) => {
-    const stars = [];
-    const fullStars = Math.floor(rating);
-    const hasHalfStar = rating % 1 !== 0;
+  const renderFilterBar = () => {
+    if (!showFilters) return null;
 
-    for (let i = 0; i < fullStars; i++) {
-      stars.push(<FaStar key={i} className="star filled" />);
-    }
+    return (
+      <div className="filter-bar">
+        <div className="filter-controls">
+          {/* Búsqueda */}
+          <div className="search-filter">
+            <div className="search-input-wrapper">
+              <FaSearch className="search-icon" />
+              <input
+                type="text"
+                placeholder="Buscar laptops..."
+                value={filters.search}
+                onChange={(e) => handleFilterChange('search', e.target.value)}
+                className="search-input"
+              />
+            </div>
+          </div>
 
-    if (hasHalfStar) {
-      stars.push(<FaStar key="half" className="star half" />);
-    }
+          {/* Filtros rápidos */}
+          <div className="quick-filters">
+            <select
+              value={filters.sortBy}
+              onChange={(e) => handleFilterChange('sortBy', e.target.value)}
+              className="filter-select"
+            >
+              <option value="featured">Destacados</option>
+              <option value="price_low">Precio: Menor a Mayor</option>
+              <option value="price_high">Precio: Mayor a Menor</option>
+              <option value="rating">Mejor Valorados</option>
+              <option value="name">Nombre A-Z</option>
+            </select>
 
-    const emptyStars = 5 - Math.ceil(rating);
-    for (let i = 0; i < emptyStars; i++) {
-      stars.push(<FaStar key={`empty-${i}`} className="star empty" />);
-    }
+            <select
+              value={filters.brand}
+              onChange={(e) => handleFilterChange('brand', e.target.value)}
+              className="filter-select"
+            >
+              <option value="">Todas las marcas</option>
+              <option value="Lenovo">Lenovo</option>
+            </select>
+          </div>
 
-    return stars;
+          {/* Botón de filtros avanzados */}
+          <button
+            onClick={() => setShowFilterModal(true)}
+            className="btn btn-outline filter-btn"
+          >
+            <FaFilter />
+            Filtros
+          </button>
+
+          {/* Limpiar filtros */}
+          {(filters.search || filters.brand || filters.minPrice || filters.maxPrice) && (
+            <button
+              onClick={clearFilters}
+              className="btn btn-secondary clear-filters-btn"
+            >
+              Limpiar filtros
+            </button>
+          )}
+        </div>
+
+        <div className="results-info">
+          <span>{laptops.length} producto{laptops.length !== 1 ? 's' : ''} encontrado{laptops.length !== 1 ? 's' : ''}</span>
+        </div>
+      </div>
+    );
   };
 
-  if (loading && laptops.length === 0) {
+  const renderFilterModal = () => {
+    if (!showFilterModal) return null;
+
     return (
-      <div className="loading-container">
+      <div className="filter-modal-overlay" onClick={() => setShowFilterModal(false)}>
+        <div className="filter-modal" onClick={(e) => e.stopPropagation()}>
+          <div className="filter-modal-header">
+            <h3>Filtros Avanzados</h3>
+            <button
+              onClick={() => setShowFilterModal(false)}
+              className="close-modal-btn"
+            >
+              ×
+            </button>
+          </div>
+
+          <div className="filter-modal-content">
+            {/* Filtro de precio */}
+            <div className="filter-group">
+              <label>Rango de Precio</label>
+              <div className="price-range">
+                <input
+                  type="number"
+                  placeholder="Precio mín."
+                  value={filters.minPrice}
+                  onChange={(e) => handleFilterChange('minPrice', e.target.value)}
+                  className="price-input"
+                />
+                <span>-</span>
+                <input
+                  type="number"
+                  placeholder="Precio máx."
+                  value={filters.maxPrice}
+                  onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
+                  className="price-input"
+                />
+              </div>
+            </div>
+
+            {/* Categorías */}
+            <div className="filter-group">
+              <label>Categorías</label>
+              <div className="category-filters">
+                <button className="category-btn" onClick={() => handleFilterChange('search', 'gaming')}>
+                  Gaming
+                </button>
+                <button className="category-btn" onClick={() => handleFilterChange('search', 'business')}>
+                  Empresarial
+                </button>
+                <button className="category-btn" onClick={() => handleFilterChange('search', 'student')}>
+                  Estudiantes
+                </button>
+                <button className="category-btn" onClick={() => handleFilterChange('search', 'creative')}>
+                  Creativos
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div className="filter-modal-footer">
+            <button
+              onClick={clearFilters}
+              className="btn btn-secondary"
+            >
+              Limpiar Todo
+            </button>
+            <button
+              onClick={() => setShowFilterModal(false)}
+              className="btn btn-primary"
+            >
+              Aplicar Filtros
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  };
+
+  if (loading) {
+    return (
+      <div className="catalog-loading">
         <div className="loading-spinner"></div>
         <p>Cargando productos...</p>
       </div>
@@ -105,157 +235,50 @@ const ProductCatalog = () => {
 
   if (error) {
     return (
-      <div className="error-container">
+      <div className="catalog-error">
         <p>{error}</p>
-        <button onClick={loadLaptops} className="retry-btn">Reintentar</button>
+        <button onClick={loadLaptops} className="btn btn-primary">
+          Reintentar
+        </button>
       </div>
     );
   }
 
   return (
     <div className="product-catalog">
-      {/* Header del catálogo */}
-      <div className="catalog-header">
-        <h1>Catálogo de Laptops</h1>
-        <p>Encuentra la laptop perfecta para tus necesidades</p>
-      </div>
-
-      {/* Filtros */}
-      <div className="filters-section">
-        <div className="filters-header">
-          <button 
-            className="filter-toggle-btn"
-            onClick={() => setShowFilters(!showFilters)}
-          >
-            <FaFilter /> Filtros
+      {title && <h2 className="catalog-title">{title}</h2>}
+      
+      {renderFilterBar()}
+      
+      {laptops.length === 0 ? (
+        <div className="no-results">
+          <p>No se encontraron productos que coincidan con tus criterios de búsqueda.</p>
+          <button onClick={clearFilters} className="btn btn-primary">
+            Ver todos los productos
           </button>
-          <div className="search-box">
-            <FaSearch className="search-icon" />
-            <input
-              type="text"
-              placeholder="Buscar laptops..."
-              value={filters.search}
-              onChange={(e) => handleFilterChange('search', e.target.value)}
-            />
-          </div>
         </div>
-
-        {showFilters && (
-          <div className="filters-panel">
-            <div className="filter-group">
-              <label>Marca:</label>
-              <select
-                value={filters.brand}
-                onChange={(e) => handleFilterChange('brand', e.target.value)}
-              >
-                <option value="">Todas las marcas</option>
-                {brands.map(brand => (
-                  <option key={brand} value={brand}>{brand}</option>
-                ))}
-              </select>
-            </div>
-
-            <div className="filter-group">
-              <label>Precio mínimo:</label>
-              <input
-                type="number"
-                placeholder="R$ 0"
-                value={filters.minPrice}
-                onChange={(e) => handleFilterChange('minPrice', e.target.value)}
-              />
-            </div>
-
-            <div className="filter-group">
-              <label>Precio máximo:</label>
-              <input
-                type="number"
-                placeholder="R$ 50.000"
-                value={filters.maxPrice}
-                onChange={(e) => handleFilterChange('maxPrice', e.target.value)}
-              />
-            </div>
-
-            <button onClick={clearFilters} className="clear-filters-btn">
-              <FaTimes /> Limpiar filtros
-            </button>
-          </div>
-        )}
-      </div>
-
-      {/* Grid de productos */}
-      <div className="products-grid">
-        {laptops.map(laptop => (
-          <div key={laptop._id} className="product-card">
-            <div className="product-image">
-              <img 
-                src={laptop.image || '/placeholder-laptop.svg'} 
-                alt={laptop.name}
-                onError={(e) => {
-                  e.target.src = '/placeholder-laptop.svg';
-                }}
-              />
-              <div className="product-badge">
-                {laptop.brand}
-              </div>
-            </div>
-
-            <div className="product-info">
-              <h3 className="product-name">{laptop.name}</h3>
-              
-              <div className="product-rating">
-                {renderStars(laptop.rating?.average || 0)}
-                <span className="rating-text">
-                  ({laptop.rating?.count || 0} reseñas)
-                </span>
-              </div>
-
-              <div className="product-specs">
-                <div className="spec-item">
-                  <span className="spec-label">Procesador:</span>
-                  <span className="spec-value">{laptop.specifications?.processor}</span>
-                </div>
-                <div className="spec-item">
-                  <span className="spec-label">RAM:</span>
-                  <span className="spec-value">{laptop.specifications?.ram}GB</span>
-                </div>
-                <div className="spec-item">
-                  <span className="spec-label">Almacenamiento:</span>
-                  <span className="spec-value">{laptop.specifications?.storage}</span>
-                </div>
-                <div className="spec-item">
-                  <span className="spec-label">Pantalla:</span>
-                  <span className="spec-value">{laptop.specifications?.screen?.size}"</span>
-                </div>
-              </div>
-
-              <div className="product-price">
-                <span className="price">{formatPrice(laptop.price, laptop.currency)}</span>
-                {laptop.oldPrice && (
-                  <span className="old-price">{formatPrice(laptop.oldPrice, laptop.currency)}</span>
-                )}
-              </div>
-
-              <div className="product-actions">
-                <Link to={`/product/${laptop._id}`} className="view-details-btn">
-                  Ver detalles
-                </Link>
-                <button className="add-to-cart-btn">
-                  Agregar al carrito
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {laptops.length === 0 && !loading && (
-        <div className="no-products">
-          <p>No se encontraron productos con los filtros seleccionados</p>
-          <button onClick={clearFilters} className="clear-filters-btn">
-            Limpiar filtros
-          </button>
+      ) : (
+        <div className="products-grid">
+          {laptops.map(laptop => (
+            <ProductCard
+              key={laptop._id || laptop.id}
+              laptop={laptop}
+              showQuickActions={true}
+            />
+          ))}
         </div>
       )}
+
+      {!limit && laptops.length > 0 && (
+        <div className="catalog-footer">
+          <p>¿No encuentras lo que buscas?</p>
+          <Link to="/contacto" className="btn btn-outline">
+            Contacta con un especialista
+          </Link>
+        </div>
+      )}
+
+      {renderFilterModal()}
     </div>
   );
 };

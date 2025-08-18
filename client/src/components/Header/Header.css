@@ -1,313 +1,486 @@
-/* Estilos do Header usando as variáveis do globals.css */
+/* Header.css - Estilo Lenovo moderno */
 
-/* Contêiner principal do cabeçalho */
 .header {
+  background: var(--lenovo-white, #FFFFFF);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
   width: 100%;
-  background: var(--white);
-  position: static !important;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-  border-bottom: 1px solid var(--lenovo-gray);
+  position: sticky;
+  top: 0;
 }
 
-/* Faixa promocional superior */
-.header__top__promo {
-  background: linear-gradient(135deg, var(--lenovo-red) 0%, var(--lenovo-dark-red) 100%);
-  padding: 0.75rem 1rem;
-  color: var(--white);
-  text-align: center;
-  font-size: 0.9rem;
-  font-weight: 500;
+/* Barra superior de contacto */
+.header__contact-bar {
+  background: #f8f9fa;
+  border-bottom: 1px solid #e9ecef;
+  padding: 4px 0;
+  font-size: 11px;
 }
 
-/* Linha com logo, busca e ícones (distribuídos) */
-.header__top {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 1rem 2rem;
-  max-width: 1400px;
+.header__contact-bar .contact-info {
   margin: 0 auto;
-}
-
-/* Altura do logo para manter proporção */
-.header__logo {
-  height: 45px;
-  transition: transform 0.3s ease;
-}
-
-.header__logo:hover {
-  transform: scale(1.05);
-}
-
-/* Área da busca ocupa o espaço central disponível */
-.header__search {
-  flex: 1;
-  margin: 0 1rem; /* espaçamento lateral */
-}
-
-/* Input de busca: largura total, borda suave */
-.header__search-input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 1px solid var(--lenovo-gray);
-  border-radius: 6px;
-  outline: none;
-}
-
-/* Ícones alinhados à direita com espaçamento */
-.header__icons {
-  display: flex;
-  gap: 1rem;
-}
-
-/* Cursor de clique para ícones */
-.header__icon {
-  cursor: pointer;
-  color: var(--black);
-}
-
-/* Barra de navegação principal */
-.header__nav {
+  padding: 0 24px;
   display: flex;
   justify-content: space-between;
-  padding: 0.75rem 2rem;
-  background: var(--white);
-  border-top: 1px solid var(--lenovo-gray);
-  max-width: 1400px;
-  margin: 0 auto;
-  position: relative;
-}
-
-/* Listas da navegação (esquerda e direita) */
-.header__nav--left,
-.header__nav--right {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  gap: 2rem;
   align-items: center;
 }
 
-.header__nav--left li,
-.header__nav--right li {
-  font-weight: 500;
-  font-size: 0.95rem;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  padding: 0.5rem 0;
-  position: relative;
+.contact-item {
+  color: #666;
+  font-size: 11px;
 }
 
-/* Wrapper do item com submenu */
-.has-submenu {
-  position: relative; /* necessário para posicionar o dropdown */
+.top-links {
+  display: flex;
+  gap: 16px;
 }
 
-/* Dropdown (submenu) oculto por padrão */
-.submenu {
-  display: none;
-  position: absolute;
-  top: 100%; /* logo abaixo do item pai */
-  left: 0;
-  background: var(--white);
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-  list-style: none;
-  padding: 0.5rem 0;
-  margin: 0;
-  min-width: 200px; /* largura mínima do dropdown */
-  z-index: 10; /* acima de outros elementos */
-  border: 1px solid var(--lenovo-gray);
-  border-radius: 8px;
-}
-
-/* Itens do submenu com área de clique confortável */
-.submenu li {
-  padding: 0.6rem 1rem;
-  cursor: pointer;
-  white-space: nowrap; /* evita quebra de linha */
-}
-
-/* Enlaces dentro del submenu */
-.submenu li a {
-  color: inherit;
+.top-link {
+  color: #666;
   text-decoration: none;
-  display: block;
-  width: 100%;
+  font-size: 11px;
+  font-weight: 500;
+  transition: color 0.2s;
 }
 
-.submenu li a:hover {
-  color: var(--lenovo-red);
+.top-link:hover {
+  color: var(--lenovo-red, #E2231A);
 }
 
-/* Hover do submenu: destaque leve */
-.submenu li:hover {
-  background: var(--lenovo-light-gray);
-}
-
-/* Ao passar o mouse no pai, exibe o submenu */
-.has-submenu:hover > .submenu {
-  display: block;
-}
-
-/* Hover nos itens do menu principal */
-.header__nav--left li:hover,
-.header__nav--right li:hover {
-  color: var(--lenovo-red);
-}
-
-.header__nav--left li::after,
-.header__nav--right li::after {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--lenovo-red);
-  transition: width 0.3s ease;
-}
-
-.header__nav--left li:hover::after,
-.header__nav--right li:hover::after {
-  width: 100%;
-}
-
-/* Faixa inferior do header (banner informativo) */
-.header__bottom {
-  background: var(--lenovo-light-gray);
-  padding: 0.75rem 2rem;
+/* Faixa promocional do topo */
+.header__top__promo {
+  background: linear-gradient(135deg, #E2231A 0%, #8B1538 100%);
+  color: var(--lenovo-white, #FFFFFF);
   text-align: center;
-  font-size: 0.9rem;
-  max-width: 1400px;
-  margin: 0 auto;
-  border-top: 1px solid var(--lenovo-gray);
+  padding: 10px 16px;
+  font-size: 13px;
+  font-weight: 500;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
-/* Estilos para as novas funcionalidades */
+.promo-content {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  margin: 0 auto;
+}
 
-/* Botão do menu móvel */
-.mobile-menu-toggle {
+.promo-badge {
+  background: rgba(255, 255, 255, 0.25);
+  padding: 2px 8px;
+  border-radius: 10px;
+  font-size: 10px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.promo-content strong {
+  font-weight: 600;
+  font-size: 12px;
+}
+
+.promo-details {
+  font-size: 10px;
+  opacity: 0.85;
+  font-weight: 400;
+}
+
+/* Navegación por categorías */
+.header__categories {
+  background: white;
+  border-bottom: 1px solid #e9ecef;
+  padding: 0;
+}
+
+.categories-container {
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.category-tabs {
+  display: flex;
+  overflow-x: auto;
+  gap: 0;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.category-tabs::-webkit-scrollbar {
   display: none;
+}
+
+.category-tab {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
   background: none;
   border: none;
-  font-size: 1.5rem;
+  border-bottom: 2px solid transparent;
   cursor: pointer;
-  color: var(--lenovo-dark-gray);
+  transition: all 0.2s;
+  white-space: nowrap;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
 }
 
-/* Formulário de busca */
-.search-form {
+.category-tab:hover {
+  background: #f8f9fa;
+  color: var(--lenovo-red, #E2231A);
+}
+
+.category-tab.active {
+  color: var(--lenovo-red, #E2231A);
+  border-bottom-color: var(--lenovo-red, #E2231A);
+  background: #fff;
+}
+
+.tab-icon {
+  font-size: 16px;
+}
+
+/* Linha principal com logo, busca e ícones */
+.header__top {
+  margin: 0 auto;
+  padding: 12px 24px;
   display: flex;
   align-items: center;
-  width: 100%;
+  justify-content: space-between;
+  gap: 24px;
 }
 
-.search-submit-btn {
-  background: var(--lenovo-red);
-  color: white;
-  border: none;
-  padding: 0.5rem 1rem;
-  margin-left: 0.5rem;
-  border-radius: 6px;
-  cursor: pointer;
+/* Logo */
+.header__logo {
+  height: 28px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+/* Campo de busca */
+.header__search {
+  flex: 1;
+  max-width: 500px;
+  margin: 0 20px;
 }
 
 .search-toggle-btn {
+  width: 100%;
   display: flex;
   align-items: center;
-  gap: 0.5rem;
-  background: var(--lenovo-light-gray);
-  border: 1px solid var(--lenovo-gray);
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
+  gap: 12px;
+  padding: 12px 16px;
+  background: var(--lenovo-very-light-gray, #F5F5F5);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
   cursor: pointer;
-  width: 100%;
-  text-align: left;
+  transition: all 0.2s;
+  color: var(--lenovo-medium-gray, #4A4A4A);
 }
 
-/* Container do menu do usuário */
+.search-toggle-btn svg {
+  color: #4A4A4A !important;
+  fill: #4A4A4A !important;
+  opacity: 1 !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+.search-toggle-btn:hover {
+  border-color: var(--lenovo-red, #E2231A);
+  background: white;
+}
+
+.search-toggle-btn:hover svg {
+  color: #E2231A !important;
+  fill: #E2231A !important;
+}
+
+.search-form {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid var(--lenovo-red);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.header__search-input {
+  flex: 1;
+  padding: 12px 16px;
+  border: none;
+  outline: none;
+  font-size: 16px;
+}
+
+.search-submit-btn {
+  padding: 12px 16px;
+  background: var(--lenovo-red, #E2231A);
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.search-submit-btn svg {
+  color: white !important;
+  fill: white !important;
+  opacity: 1 !important;
+}
+
+/* Ícones de ações */
+.header__icons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
+}
+
+.header__icon {
+  position: relative;
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: transparent;
+  color: var(--lenovo-dark-gray, #1E1E1E) !important;
+  cursor: pointer;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  transition: all 0.2s;
+}
+
+/* Estilos específicos para iconos de react-icons */
+.header__icon svg {
+  color: #1E1E1E !important;
+  fill: #1E1E1E !important;
+  opacity: 1 !important;
+  width: 18px !important;
+  height: 18px !important;
+  display: block !important;
+  visibility: visible !important;
+}
+
+/* Forzar visibilidad de todos los SVG en el header */
+.header svg {
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: inline-block !important;
+}
+
+.header__icons svg,
+.header__search svg {
+  color: #1E1E1E !important;
+  fill: #1E1E1E !important;
+}
+
+.header__icon:hover {
+  background: var(--lenovo-very-light-gray, #F5F5F5);
+  color: var(--lenovo-red, #E2231A) !important;
+}
+
+.header__icon:hover svg {
+  color: #E2231A !important;
+  fill: #E2231A !important;
+}
+
+.icon-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  background: var(--lenovo-red, #E2231A);
+  color: white;
+  font-size: 10px;
+  font-weight: 600;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid white;
+}
+
+/* Menu do usuário */
 .user-menu-container {
   position: relative;
 }
 
-/* Dropdown do usuário */
 .user-dropdown {
   position: absolute;
   top: 100%;
   right: 0;
   background: white;
-  border: 1px solid var(--lenovo-gray);
-  border-radius: 6px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  padding: 8px 0;
   min-width: 200px;
-  z-index: 1000;
-}
-
-.user-info {
-  padding: 1rem;
-  border-bottom: 1px solid var(--lenovo-light-gray);
-  font-weight: bold;
+  z-index: 1001;
 }
 
 .dropdown-item {
-  display: block;
   width: 100%;
-  padding: 0.75rem 1rem;
-  background: none;
+  padding: 12px 16px;
   border: none;
+  background: none;
   text-align: left;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: background 0.2s;
 }
 
 .dropdown-item:hover {
-  background: var(--lenovo-light-gray);
+  background: var(--lenovo-very-light-gray, #F5F5F5);
 }
 
-/* Badges para ícones */
-.icon-badge {
-  position: absolute;
-  top: -8px;
-  right: -8px;
-  background: var(--lenovo-red);
-  color: white;
-  border-radius: 50%;
-  width: 20px;
-  height: 20px;
-  font-size: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: bold;
+.user-info {
+  padding: 12px 16px;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 8px;
 }
 
-/* Ícones clicáveis */
-.header__icon {
+/* Navegação principal */
+.header__nav {
+  background: var(--lenovo-very-light-gray, #F5F5F5);
+  border-top: 1px solid #e0e0e0;
   position: relative;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.mobile-menu-toggle {
+  display: none;
   background: none;
   border: none;
-  font-size: 1.2rem;
+  font-size: 20px;
+  padding: 8px;
   cursor: pointer;
-  color: var(--lenovo-dark-gray);
-  transition: color 0.2s;
 }
 
-.header__icon:hover {
-  color: var(--lenovo-red);
+.nav-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
 }
 
-/* Dropdown de produtos aberto */
-.dropdown-open {
-  display: block !important;
+.header__nav--left,
+.header__nav--right {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
 }
 
-/* Responsividade para mobile */
+.header__nav--left {
+  flex: 1;
+  justify-content: flex-start;
+}
+
+.header__nav--right {
+  justify-content: flex-end;
+}
+
+.header__nav--left > li,
+.header__nav--right > li {
+  position: relative;
+  padding: 16px 6px;
+  cursor: pointer;
+  font-weight: 500;
+  color: var(--lenovo-dark-gray, #1E1E1E);
+  transition: all 0.2s;
+  white-space: nowrap;
+}
+
+.header__nav--left > li:hover,
+.header__nav--right > li:hover {
+  color: var(--lenovo-red, #E2231A);
+  background: white;
+}
+
+/* Submenus */
+.has-submenu .submenu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-10px);
+  transition: all 0.3s;
+  list-style: none;
+  padding: 8px 0;
+  margin: 0;
+}
+
+.has-submenu:hover .submenu,
+.submenu.dropdown-open {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.submenu li {
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background 0.2s;
+  font-weight: normal;
+}
+
+.submenu li:hover {
+  background: var(--lenovo-very-light-gray, #F5F5F5);
+  color: var(--lenovo-red, #E2231A);
+}
+
+.submenu a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+}
+
+/* Faixa informativa inferior */
+.header__bottom {
+  background: var(--lenovo-medium-gray, #4A4A4A);
+  color: white;
+  text-align: center;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+/* Mobile responsivo */
 @media (max-width: 768px) {
   .mobile-menu-toggle {
     display: block;
   }
-  
+
+  .header__top {
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .header__search {
+    order: 3;
+    flex-basis: 100%;
+    margin: 0;
+  }
+
   .header__nav--left {
     display: none;
     position: absolute;
@@ -316,14 +489,31 @@
     right: 0;
     background: white;
     flex-direction: column;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    align-items: stretch;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
   }
-  
+
   .header__nav--left.mobile-open {
     display: flex;
   }
-  
+
+  .header__nav--left > li {
+    padding: 16px 24px;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
   .header__nav--right {
     display: none;
+  }
+
+  .has-submenu .submenu {
+    position: static;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    box-shadow: none;
+    border: none;
+    border-radius: 0;
+    background: var(--lenovo-very-light-gray);
   }
 }

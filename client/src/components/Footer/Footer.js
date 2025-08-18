@@ -183,7 +183,7 @@ const Footer = () => {
                     fontWeight: '500'
                   }}
                 >
-                  🔐 Painel de Administração
+                  🔐 Panel de Administración
                 </Link>
               </div>
             )}

@@ -28,7 +28,7 @@ const ImageUpload = ({ onImageUpload, currentImage, disabled = false }) => {
       const formData = new FormData();
       formData.append('image', file);
 
-      const response = await fetch('http://localhost:3001/api/upload/image', {
+      const response = await fetch('http://localhost:3002/api/upload/image', {
         method: 'POST',
         body: formData
       });
