@@ -43,7 +43,7 @@ const ProductCatalog = ({ showFilters = true, limit = null, title = null }) => {
       setLaptops(laptopData);
     } catch (err) {
       console.error('Error al cargar laptops:', err);
-      setError('Error al cargar los productos. Por favor, intenta nuevamente.');
+      setError('Erro ao carregar os produtos. Por favor, tente novamente.');
     } finally {
       setLoading(false);
     }
@@ -196,10 +196,10 @@ const ProductCatalog = ({ showFilters = true, limit = null, title = null }) => {
                   Empresarial
                 </button>
                 <button className="category-btn" onClick={() => handleFilterChange('search', 'student')}>
-                  Estudiantes
+                  Estudantes
                 </button>
                 <button className="category-btn" onClick={() => handleFilterChange('search', 'creative')}>
-                  Creativos
+                  Criativos
                 </button>
               </div>
             </div>
@@ -228,7 +228,7 @@ const ProductCatalog = ({ showFilters = true, limit = null, title = null }) => {
     return (
       <div className="catalog-loading">
         <div className="loading-spinner"></div>
-        <p>Cargando productos...</p>
+        <p>Carregando produtos...</p>
       </div>
     );
   }
@@ -252,9 +252,9 @@ const ProductCatalog = ({ showFilters = true, limit = null, title = null }) => {
       
       {laptops.length === 0 ? (
         <div className="no-results">
-          <p>No se encontraron productos que coincidan con tus criterios de búsqueda.</p>
+          <p>Não foram encontrados produtos que correspondam aos seus critérios de busca.</p>
           <button onClick={clearFilters} className="btn btn-primary">
-            Ver todos los productos
+            Ver todos os produtos
           </button>
         </div>
       ) : (

@@ -74,7 +74,7 @@ const Footer = () => {
             <select className="country-select">
               <option>Português (Brasil)</option>
               <option>English (US)</option>
-              <option>Español (México)</option>
+              <option>Português (Brasil)</option>
             </select>
           </div>
         </div>
@@ -183,7 +183,7 @@ const Footer = () => {
                     fontWeight: '500'
                   }}
                 >
-                  🔐 Panel de Administración
+                  🔐 Painel de Administração
                 </Link>
               </div>
             )}

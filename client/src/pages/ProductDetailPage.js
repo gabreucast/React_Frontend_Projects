@@ -29,7 +29,7 @@ const ProductDetailPage = () => {
       setError(null);
     } catch (error) {
       console.error('Error loading laptop:', error);
-      setError('Error al cargar el producto');
+      setError('Erro ao carregar o produto');
     } finally {
       setLoading(false);
     }
@@ -172,11 +172,11 @@ const ProductDetailPage = () => {
             <div className="product-benefits">
               <div className="benefit">
                 <FaTruck className="benefit-icon" />
-                <span>Envío gratis a todo el país</span>
+                <span>Frete grátis para todo o país</span>
               </div>
               <div className="benefit">
                 <FaShieldAlt className="benefit-icon" />
-                <span>Garantía oficial de 1 año</span>
+                <span>Garantia oficial de 1 ano</span>
               </div>
               <div className="benefit">
                 <FaCheck className="benefit-icon" />

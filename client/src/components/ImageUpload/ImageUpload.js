@@ -44,7 +44,7 @@ const ImageUpload = ({ onImageUpload, currentImage, disabled = false }) => {
       }
     } catch (error) {
       console.error('Error al subir imagen:', error);
-      alert('Error al subir la imagen. Inténtalo de nuevo.');
+      alert('Erro ao enviar a imagem. Tente novamente.');
     } finally {
       setUploading(false);
     }

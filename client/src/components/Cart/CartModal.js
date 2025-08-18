@@ -58,7 +58,7 @@ const CartModal = () => {
             <div className="cart-modal__empty">
               <i className="fas fa-shopping-cart cart-modal__empty-icon"></i>
               <h3>Tu carrito está vacío</h3>
-              <p>Agrega algunos productos para comenzar tu compra</p>
+              <p>Adicione alguns produtos para começar sua compra</p>
               <button 
                 className="cart-modal__continue-shopping"
                 onClick={toggleCart}
@@ -79,7 +79,7 @@ const CartModal = () => {
               <div className="cart-modal__summary">
                 <div className="cart-summary">
                   <div className="cart-summary__row">
-                    <span>Subtotal ({cartSummary.itemCount} productos):</span>
+                    <span>Subtotal ({cartSummary.itemCount} produtos):</span>
                     <span className="cart-summary__value">{cartSummary.formattedSubtotal}</span>
                   </div>
                   
@@ -89,7 +89,7 @@ const CartModal = () => {
                   </div>
                   
                   <div className="cart-summary__row">
-                    <span>Envío:</span>
+                    <span>Frete:</span>
                     <span className="cart-summary__value cart-summary__shipping">
                       {cartSummary.formattedShipping}
                     </span>
@@ -98,7 +98,7 @@ const CartModal = () => {
                   {cartSummary.shipping === 0 && (
                     <div className="cart-summary__free-shipping">
                       <i className="fas fa-truck"></i>
-                      ¡Envío gratis en tu pedido!
+                      Frete grátis no seu pedido!
                     </div>
                   )}
                   

@@ -182,7 +182,7 @@ const ImageManager = ({ images = [], onImagesChange, maxImages = 5 }) => {
                 />
                 <div className="image-fallback" style={{ display: 'none' }}>
                   <ImageIcon size={24} />
-                  <span>Error al cargar</span>
+                  <span>Erro ao carregar</span>
                 </div>
               </div>
               

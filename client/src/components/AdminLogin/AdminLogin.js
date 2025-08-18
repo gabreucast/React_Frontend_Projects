@@ -58,7 +58,7 @@ const AdminLogin = () => {
             <Lock size={32} />
           </div>
           <h1>Panel de Administración</h1>
-          <p>Accede al sistema de gestión de productos</p>
+          <p>Acesse o sistema de gestão de produtos</p>
         </div>
 
         <form onSubmit={handleSubmit} className="admin-login-form">

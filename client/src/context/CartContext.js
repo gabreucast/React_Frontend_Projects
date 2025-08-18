@@ -44,7 +44,7 @@ const cartReducer = (state, action) => {
             : item
         );
       } else {
-        // Si es un producto nuevo, agregarlo
+        // Se é um produto novo, adicioná-lo
         const newItem = {
           id: product._id,
           name: product.name,
@@ -150,7 +150,7 @@ export const CartProvider = ({ children }) => {
         const cartData = JSON.parse(savedCart);
         dispatch({ type: CART_ACTIONS.LOAD_CART, payload: cartData });
       } catch (error) {
-        console.error('Error al cargar el carrito desde localStorage:', error);
+        console.error('Erro ao carregar o carrinho do localStorage:', error);
       }
     }
     setIsInitialized(true);

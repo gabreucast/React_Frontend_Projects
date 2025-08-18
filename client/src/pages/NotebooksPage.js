@@ -39,7 +39,7 @@ const NotebooksPage = () => {
       setFilteredLaptops(processedLaptops);
     } catch (err) {
       console.error('Error loading laptops:', err);
-      setError('Error al cargar los productos desde el servidor. Verifique la conexión.');
+      setError('Erro ao carregar os produtos do servidor. Verifique a conexão.');
       setLaptops([]);
       setFilteredLaptops([]);
     } finally {
@@ -163,7 +163,7 @@ const NotebooksPage = () => {
           <h1>Notebooks</h1>
           <div className="loading-state">
             <div className="spinner"></div>
-            <p>Cargando productos...</p>
+            <p>Carregando produtos...</p>
           </div>
         </div>
       </div>
@@ -317,7 +317,7 @@ const NotebooksPage = () => {
 
             {filteredLaptops.length === 0 && !loading && (
               <div className="empty-state">
-                <p>{laptops.length === 0 ? 'No se encontraron productos' : 'No hay productos que coincidan con los filtros seleccionados'}</p>
+                <p>{laptops.length === 0 ? 'Não foram encontrados produtos' : 'Não há produtos que correspondam aos filtros selecionados'}</p>
               </div>
             )}
           </main>

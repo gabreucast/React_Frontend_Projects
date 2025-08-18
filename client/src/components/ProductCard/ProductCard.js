@@ -105,7 +105,7 @@ const ProductCard = ({ laptop, showQuickActions = false }) => {
             <button 
               className={`quick-action-btn favorite-btn ${isFavorite ? 'active' : ''}`}
               onClick={handleFavoriteToggle}
-              title={isFavorite ? 'Quitar de favoritos' : 'Agregar a favoritos'}
+              title={isFavorite ? 'Remover dos favoritos' : 'Adicionar aos favoritos'}
             >
               <FaHeart />
             </button>

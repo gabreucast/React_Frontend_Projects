@@ -33,7 +33,7 @@ export const calculateItemSubtotal = (item) => {
 export const calculateCartTotals = (items) => {
   const subtotal = items.reduce((total, item) => total + calculateItemSubtotal(item), 0);
   const tax = subtotal * 0.19; // IVA del 19%
-  const shipping = subtotal > 200000 ? 0 : 15000; // Envío gratis para compras mayores a $200,000
+  const shipping = subtotal > 200000 ? 0 : 15000; // Frete grátis para compras maiores que R$ 200,000
   const total = subtotal + tax + shipping;
   
   return {

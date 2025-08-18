@@ -114,7 +114,7 @@ const Admin = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      // Generar un ID único para productos nuevos
+      // Gerar um ID único para produtos novos
       const generateId = () => {
         return Date.now() + Math.floor(Math.random() * 1000)
       }

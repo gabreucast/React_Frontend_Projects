@@ -130,12 +130,12 @@ const ProductSection = () => {
       <section className="product-section">
         <div className="container">
           <div className="section-header">
-            <h2>Productos Destacados</h2>
-            <p>Descubre nuestras mejores ofertas</p>
+            <h2>Produtos em Destaque</h2>
+            <p>Descubra nossas melhores ofertas</p>
           </div>
           <div className="loading-container">
             <div className="loading-spinner"></div>
-            <p>Cargando productos...</p>
+            <p>Carregando produtos...</p>
           </div>
         </div>
       </section>
@@ -151,10 +151,10 @@ const ProductSection = () => {
     <section className="product-section">
       <div className="container">
         <div className="section-header">
-          <h2>Productos Destacados</h2>
-          <p>Descubre nuestras mejores ofertas y laptops más populares</p>
+          <h2>Produtos em Destaque</h2>
+          <p>Descubra nossas melhores ofertas e laptops mais populares</p>
           <Link to="/notebooks" className="view-all-btn">
-            Ver todos los productos
+            Ver todos os produtos
             <FaArrowRight />
           </Link>
         </div>

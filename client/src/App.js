@@ -11,15 +11,15 @@ import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
 import './styles/globals.css';
 
-// Componente para la página principal
+// Componente para a página principal
 const HomePage = () => (
   <div className="home-page">
     <HeroSection />
     <section className="products-section">
       <div className="container">
         <div className="section-header text-center">
-          <h2>Nuestra Colección de Laptops</h2>
-          <p>Descubre la tecnología más avanzada con el sello de calidad Lenovo</p>
+          <h2>Nossa Coleção de Laptops</h2>
+          <p>Descubra a tecnologia mais avançada com o selo de qualidade Lenovo</p>
         </div>
         <ProductCatalog />
       </div>

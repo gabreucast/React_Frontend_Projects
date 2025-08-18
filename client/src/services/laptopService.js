@@ -27,7 +27,7 @@ const staticLaptops = [
       "/placeholder-laptop.svg"
     ],
     badges: ["featured", "new"],
-    description: "El ThinkPad más delgado y ligero con rendimiento empresarial premium."
+    description: "O ThinkPad mais fino e leve com desempenho empresarial premium."
   },
   {
     id: 2,
@@ -54,7 +54,7 @@ const staticLaptops = [
       "/placeholder-laptop.svg"
     ],
     badges: ["gaming", "discount"],
-    description: "Potencia gaming extrema con refrigeración avanzada y pantalla de alta frecuencia."
+    description: "Potência gaming extrema com refrigeração avançada e tela de alta frequência."
   },
   {
     id: 3,
@@ -81,7 +81,7 @@ const staticLaptops = [
       "/placeholder-laptop.svg"
     ],
     badges: ["student", "discount"],
-    description: "Perfecta para estudiantes con excelente relación calidad-precio."
+    description: "Perfeita para estudantes com excelente relação custo-benefício."
   },
   {
     id: 4,
@@ -108,7 +108,7 @@ const staticLaptops = [
       "/placeholder-laptop.svg"
     ],
     badges: ["workstation", "professional"],
-    description: "Estación de trabajo móvil para profesionales exigentes."
+    description: "Estação de trabalho móvel para profissionais exigentes."
   },
   {
     id: 5,
@@ -135,7 +135,7 @@ const staticLaptops = [
       "/placeholder-laptop.svg"
     ],
     badges: ["convertible", "premium"],
-    description: "Laptop convertible premium con pantalla táctil OLED y diseño elegante."
+    description: "Laptop conversível premium com tela sensível ao toque OLED e design elegante."
   },
   {
     id: 6,
@@ -162,7 +162,7 @@ const staticLaptops = [
       "/placeholder-laptop.svg"
     ],
     badges: ["business", "amd"],
-    description: "Laptop empresarial con procesador AMD y excelente duración de batería."
+    description: "Laptop empresarial com processador AMD e excelente duração de bateria."
   },
   {
     id: 7,
@@ -189,7 +189,7 @@ const staticLaptops = [
       "/placeholder-laptop.svg"
     ],
     badges: ["gaming", "amd"],
-    description: "Gaming de alto rendimiento con la mejor relación calidad-precio."
+    description: "Gaming de alto desempenho com a melhor relação custo-benefício."
   },
   {
     id: 8,
@@ -216,7 +216,7 @@ const staticLaptops = [
       "/placeholder-laptop.svg"
     ],
     badges: ["budget", "entry"],
-    description: "Laptop económica perfecta para tareas básicas y navegación web."
+    description: "Laptop econômica perfeita para tarefas básicas e navegação web."
   }
 ];
 
