@@ -1,29 +1,36 @@
-# Ignorar todo por defecto
-*
+# Dependencias
+node_modules/
+**/node_modules/
 
-# Permitir directorios principales
-!client/
-!server/
-!README.md
-!.gitignore
+# Build outputs
+build/
+dist/
 
-# Cliente
-!client/src/
-!client/src/**/*.js
-!client/src/**/*.jsx
-!client/src/**/*.css
-!client/public/
-!client/public/index.html
-!client/public/manifest.json
-!client/public/robots.txt
-!client/package.json
-!client/package-lock.json
+# Environment variables
+.env*
+!.env.example
 
-# Servidor
-!server/src/
-!server/src/**/*.js
-!server/package.json
-!server/package-lock.json
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock
+
+# Coverage directory used by tools like istanbul
+coverage/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
 
 # Siempre ignorar
 node_modules/
