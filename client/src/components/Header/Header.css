@@ -1,0 +1,329 @@
+/* Estilos do Header usando as variáveis do globals.css */
+
+/* Contêiner principal do cabeçalho */
+.header {
+  width: 100%;
+  background: var(--white);
+  position: static !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-bottom: 1px solid var(--lenovo-gray);
+}
+
+/* Faixa promocional superior */
+.header__top__promo {
+  background: linear-gradient(135deg, var(--lenovo-red) 0%, var(--lenovo-dark-red) 100%);
+  padding: 0.75rem 1rem;
+  color: var(--white);
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Linha com logo, busca e ícones (distribuídos) */
+.header__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Altura do logo para manter proporção */
+.header__logo {
+  height: 45px;
+  transition: transform 0.3s ease;
+}
+
+.header__logo:hover {
+  transform: scale(1.05);
+}
+
+/* Área da busca ocupa o espaço central disponível */
+.header__search {
+  flex: 1;
+  margin: 0 1rem; /* espaçamento lateral */
+}
+
+/* Input de busca: largura total, borda suave */
+.header__search-input {
+  width: 100%;
+  padding: 0.5rem;
+  border: 1px solid var(--lenovo-gray);
+  border-radius: 6px;
+  outline: none;
+}
+
+/* Ícones alinhados à direita com espaçamento */
+.header__icons {
+  display: flex;
+  gap: 1rem;
+}
+
+/* Cursor de clique para ícones */
+.header__icon {
+  cursor: pointer;
+  color: var(--black);
+}
+
+/* Barra de navegação principal */
+.header__nav {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 2rem;
+  background: var(--white);
+  border-top: 1px solid var(--lenovo-gray);
+  max-width: 1400px;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* Listas da navegação (esquerda e direita) */
+.header__nav--left,
+.header__nav--right {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+  align-items: center;
+}
+
+.header__nav--left li,
+.header__nav--right li {
+  font-weight: 500;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0.5rem 0;
+  position: relative;
+}
+
+/* Wrapper do item com submenu */
+.has-submenu {
+  position: relative; /* necessário para posicionar o dropdown */
+}
+
+/* Dropdown (submenu) oculto por padrão */
+.submenu {
+  display: none;
+  position: absolute;
+  top: 100%; /* logo abaixo do item pai */
+  left: 0;
+  background: var(--white);
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  list-style: none;
+  padding: 0.5rem 0;
+  margin: 0;
+  min-width: 200px; /* largura mínima do dropdown */
+  z-index: 10; /* acima de outros elementos */
+  border: 1px solid var(--lenovo-gray);
+  border-radius: 8px;
+}
+
+/* Itens do submenu com área de clique confortável */
+.submenu li {
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  white-space: nowrap; /* evita quebra de linha */
+}
+
+/* Enlaces dentro del submenu */
+.submenu li a {
+  color: inherit;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+.submenu li a:hover {
+  color: var(--lenovo-red);
+}
+
+/* Hover do submenu: destaque leve */
+.submenu li:hover {
+  background: var(--lenovo-light-gray);
+}
+
+/* Ao passar o mouse no pai, exibe o submenu */
+.has-submenu:hover > .submenu {
+  display: block;
+}
+
+/* Hover nos itens do menu principal */
+.header__nav--left li:hover,
+.header__nav--right li:hover {
+  color: var(--lenovo-red);
+}
+
+.header__nav--left li::after,
+.header__nav--right li::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--lenovo-red);
+  transition: width 0.3s ease;
+}
+
+.header__nav--left li:hover::after,
+.header__nav--right li:hover::after {
+  width: 100%;
+}
+
+/* Faixa inferior do header (banner informativo) */
+.header__bottom {
+  background: var(--lenovo-light-gray);
+  padding: 0.75rem 2rem;
+  text-align: center;
+  font-size: 0.9rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  border-top: 1px solid var(--lenovo-gray);
+}
+
+/* Estilos para as novas funcionalidades */
+
+/* Botão do menu móvel */
+.mobile-menu-toggle {
+  display: none;
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  color: var(--lenovo-dark-gray);
+}
+
+/* Formulário de busca */
+.search-form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.search-submit-btn {
+  background: var(--lenovo-red);
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  margin-left: 0.5rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.search-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--lenovo-light-gray);
+  border: 1px solid var(--lenovo-gray);
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+}
+
+/* Container do menu do usuário */
+.user-menu-container {
+  position: relative;
+}
+
+/* Dropdown do usuário */
+.user-dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: white;
+  border: 1px solid var(--lenovo-gray);
+  border-radius: 6px;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  min-width: 200px;
+  z-index: 1000;
+}
+
+.user-info {
+  padding: 1rem;
+  border-bottom: 1px solid var(--lenovo-light-gray);
+  font-weight: bold;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  background: none;
+  border: none;
+  text-align: left;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.dropdown-item:hover {
+  background: var(--lenovo-light-gray);
+}
+
+/* Badges para ícones */
+.icon-badge {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--lenovo-red);
+  color: white;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  font-size: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+}
+
+/* Ícones clicáveis */
+.header__icon {
+  position: relative;
+  background: none;
+  border: none;
+  font-size: 1.2rem;
+  cursor: pointer;
+  color: var(--lenovo-dark-gray);
+  transition: color 0.2s;
+}
+
+.header__icon:hover {
+  color: var(--lenovo-red);
+}
+
+/* Dropdown de produtos aberto */
+.dropdown-open {
+  display: block !important;
+}
+
+/* Responsividade para mobile */
+@media (max-width: 768px) {
+  .mobile-menu-toggle {
+    display: block;
+  }
+  
+  .header__nav--left {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    background: white;
+    flex-direction: column;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .header__nav--left.mobile-open {
+    display: flex;
+  }
+  
+  .header__nav--right {
+    display: none;
+  }
+}

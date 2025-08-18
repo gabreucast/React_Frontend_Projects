@@ -1,0 +1,25 @@
+/* Layout Component Styles */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--white);
+}
+
+.main-content {
+  flex: 1;
+  width: 100%;
+  min-height: calc(100vh - 200px); /* Ajustar según la altura del header y footer */
+}
+
+/* Asegurar que el contenido principal tenga espacio adecuado */
+.main-content > * {
+  width: 100%;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .main-content {
+    min-height: calc(100vh - 150px);
+  }
+}
