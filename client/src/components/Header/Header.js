@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaUser, FaShoppingCart, FaHeart, FaBars, FaTimes, FaSearch } from 'react-icons/fa'; // Ícones do usuário, carrinho e favoritos
 import './Header.css'; // Estilos específicos do Header
-import logo from '../../assets/lenovo-logo.svg'; // Logo (coloque sua imagem em src/assets)
+import logo from '../assest/lenovo-logo.png'; // Logo (coloque sua imagem em src/assets)
 import { useCart } from '../../context/CartContext';
 import CartModal from '../Cart/CartModal';
 
